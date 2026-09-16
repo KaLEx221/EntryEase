@@ -173,6 +173,10 @@ nginx -t; \
 echo '===== START PHP-FPM ====='; \
 php-fpm -D; \
 sleep 2; \
+echo '===== CLEAR LARAVEL CONFIG ====='; \
+php artisan config:clear; \
+echo '===== RUN DATABASE MIGRATIONS ====='; \
+php artisan migrate --force; \
 echo '===== START NGINX ====='; \
 nginx -g 'daemon off;' \
 "]
