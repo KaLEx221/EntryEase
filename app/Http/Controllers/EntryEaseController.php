@@ -110,9 +110,9 @@ class EntryEaseController extends Controller
         // #endregion
 
         $redirect = match ($newRole) {
-            'admin'             => route('admin.dashboard'),
-            'admission_officer' => route('registrar.dashboard'),
-            default             => route('student.dashboard'),
+            'admin'             => route('admin.dashboard', absolute: false),
+            'admission_officer' => route('registrar.dashboard', absolute: false),
+            default             => route('student.dashboard', absolute: false),
         };
 
         return response()->json([
@@ -269,7 +269,7 @@ class EntryEaseController extends Controller
             if ($wantsJson) {
                 Log::info('[SSO] Returning JSON response for student');
                 return response()->json([
-                    'redirect' => route('student.dashboard'),
+                    'redirect' => route('student.dashboard', absolute: false),
                     'role' => $newRole,
                     'user' => $userData,
                 ]);
@@ -290,7 +290,7 @@ class EntryEaseController extends Controller
             if ($wantsJson) {
                 Log::info('[SSO] Returning JSON response for admission_officer');
                 return response()->json([
-                    'redirect' => route('registrar.dashboard'),
+                    'redirect' => route('registrar.dashboard', absolute: false),
                     'role' => $newRole,
                     'user' => $userData,
                 ]);
@@ -332,7 +332,7 @@ class EntryEaseController extends Controller
             if ($wantsJson) {
                 Log::info('[SSO] Returning JSON response for admin');
                 return response()->json([
-                    'redirect' => route('admin.dashboard'),
+                    'redirect' => route('admin.dashboard', absolute: false),
                     'role' => $newRole,
                     'user' => $userData,
                 ]);
@@ -396,9 +396,9 @@ class EntryEaseController extends Controller
     private function redirectByRole(string $role)
     {
         return match ($role) {
-            'admin'             => redirect()->route('admin.dashboard'),
-            'admission_officer' => redirect()->route('registrar.dashboard'),
-            default             => redirect()->route('student.dashboard'),
+            'admin'             => redirect()->route('admin.dashboard', absolute: false),
+            'admission_officer' => redirect()->route('registrar.dashboard', absolute: false),
+            default             => redirect()->route('student.dashboard', absolute: false),
         };
     }
 
