@@ -65,7 +65,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'portal' => [
-        'url' => env('DEORIS_PORTAL_URL', env('APP_PORTAL_URL', 'https://deoris.test')),
+        'url' => env('DEORIS_PORTAL_URL', env('APP_PORTAL_URL', 'https://deoris.onrender.com')),
         'event_secret' => env('ENTRYEASE_EVENT_SECRET', env('DEORIS_PORTAL_EVENT_SECRET')),
         'verify_ssl' => (bool) env('DEORIS_VERIFY_SSL', true),
         'redis_channel' => env('DEORIS_PORTAL_REDIS_CHANNEL', 'deoris.events'),

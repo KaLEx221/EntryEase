@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://entryease.onrender.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -132,6 +132,6 @@ return [
     | Used for SSO handshake and CSP frame-ancestors directive.
     |
     */
-    'portal_url' => env('APP_PORTAL_URL', 'https://deoris.test'),
+    'portal_url' => env('APP_PORTAL_URL', 'https://deoris.onrender.com'),
 
 ];

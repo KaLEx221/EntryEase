@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>EntryEase - Admission Management</title>
-    <link rel="stylesheet" href="{{ asset('css/entryease.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/entryease.css') }}">
     <script>
         // ── Module configuration injected from Laravel config ─────────────
         // This module's own origin — used for API calls
@@ -58,7 +58,7 @@
 
 <!-- module-bridge.js MUST load BEFORE your main app script -->
 <script src="{{ rtrim(config('app.portal_url', 'https://deoris.test'), '/') }}/module-bridge.js"></script>
-<script src="{{ asset('js/entryease.js') }}?v={{ filemtime(public_path('js/entryease.js')) }}"></script>
+<script src="{{ secure_asset('js/entryease.js') }}?v={{ filemtime(public_path('js/entryease.js')) }}"></script>
 
 </body>
 </html>

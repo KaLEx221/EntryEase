@@ -13,7 +13,7 @@ return [
     /**
      * Portal URL - The single identity provider
      */
-    'portal_url' => env('DEORIS_PORTAL_URL', 'https://deoris.test'),
+    'portal_url' => env('DEORIS_PORTAL_URL', 'https://deoris.onrender.com'),
 
     /**
      * Portal's public key for signature validation
@@ -73,7 +73,7 @@ return [
          * CSP frame-ancestors directive
          * Only the portal origin should be allowed to embed this module
          */
-        'frame_ancestors' => env('DEORIS_PORTAL_URL', 'https://deoris.test'),
+        'frame_ancestors' => env('DEORIS_PORTAL_URL', 'https://deoris.onrender.com'),
     ],
 
     /**
