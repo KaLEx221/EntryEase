@@ -164,17 +164,20 @@ EXPOSE 10000
 CMD ["sh", "-c", "\
 export PORT=\"${PORT:-10000}\"; \
 sed -i \"s/0.0.0.0:10000/0.0.0.0:${PORT}/\" /etc/nginx/conf.d/default.conf; \
-echo '===== NGINX CONFIG ====='; \
-cat /etc/nginx/conf.d/default.conf; \
-echo '===== NGINX TEST ====='; \
 nginx -t; \
-echo '===== START PHP-FPM ====='; \
 php-fpm -D; \
 sleep 2; \
-echo '===== CLEAR LARAVEL CONFIG ====='; \
+echo '===== DATABASE ENV ====='; \
+echo \"DB_CONNECTION=$DB_CONNECTION\"; \
+echo \"DB_HOST=$DB_HOST\"; \
+echo \"DB_PORT=$DB_PORT\"; \
+echo \"DB_DATABASE=$DB_DATABASE\"; \
+echo \"DB_USERNAME=$DB_USERNAME\"; \
+echo \"DB_SCHEMA=$DB_SCHEMA\"; \
+echo \"DB_URL_PRESENT=${DB_URL:+YES}\"; \
+echo '===== LARAVEL DATABASE CONFIG ====='; \
 php artisan config:clear; \
-echo '===== RUN DATABASE MIGRATIONS ====='; \
-php artisan migrate --force; \
+php artisan tinker --execute=\"dump(config('database.connections.pgsql.username')); dump(config('database.connections.pgsql.host')); dump(config('database.connections.pgsql.database')); dump(config('database.connections.pgsql.search_path'));\"; \
 echo '===== START NGINX ====='; \
 nginx -g 'daemon off;' \
 "]
