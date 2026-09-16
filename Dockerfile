@@ -1,7 +1,16 @@
+# =========================
+# Stage 1: Composer
+# =========================
 FROM composer:2.7 AS composer
 
+# =========================
+# Stage 2: Laravel + Nginx
+# =========================
 FROM php:8.3-fpm
 
+# =========================
+# Install System Dependencies
+# =========================
 RUN apt-get update && apt-get install -y \
     nginx \
     git \
@@ -19,6 +28,9 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# =========================
+# Install PHP Extensions
+# =========================
 RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
@@ -31,11 +43,20 @@ RUN docker-php-ext-install \
     gd \
     zip
 
+# =========================
+# Install Redis PHP Extension
+# =========================
 RUN pecl install redis \
     && docker-php-ext-enable redis
 
+# =========================
+# Install Composer
+# =========================
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
+# =========================
+# PHP-FPM Configuration
+# =========================
 RUN printf '%s\n' \
 '[www]' \
 'user = www-data' \
@@ -51,19 +72,47 @@ RUN printf '%s\n' \
 'catch_workers_output = yes' \
 > /usr/local/etc/php-fpm.d/www.conf
 
+# =========================
+# Working Directory
+# =========================
 WORKDIR /var/www/html
 
+# =========================
+# Composer Dependencies
+# =========================
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-interaction \
+    --no-scripts
+
+# =========================
+# Node Dependencies
+# =========================
 COPY package.json package-lock.json ./
+
 RUN npm ci
 
+# =========================
+# Copy Application
+# =========================
 COPY . .
 
+# =========================
+# Build Frontend
+# =========================
 RUN npm run build
-RUN composer run-script post-autoload-dump
 
+# =========================
+# Laravel Autoload / Package Discovery
+# =========================
+RUN composer dump-autoload --optimize
+
+# =========================
+# Laravel Permissions
+# =========================
 RUN chown -R www-data:www-data \
     /var/www/html/storage \
     /var/www/html/bootstrap/cache \
@@ -71,15 +120,21 @@ RUN chown -R www-data:www-data \
     /var/www/html/storage \
     /var/www/html/bootstrap/cache
 
+# =========================
+# Nginx Configuration
+# =========================
 RUN rm -f /etc/nginx/sites-enabled/default
 
 RUN printf '%s\n' \
 'server {' \
-'    listen 0.0.0.0:${PORT};' \
+'    listen 0.0.0.0:10000;' \
 '    server_name _;' \
 '    root /var/www/html/public;' \
 '    index index.php index.html;' \
 '    client_max_body_size 100M;' \
+'    proxy_connect_timeout 120s;' \
+'    proxy_send_timeout 120s;' \
+'    proxy_read_timeout 120s;' \
 '' \
 '    location / {' \
 '        try_files $uri $uri/ /index.php?$query_string;' \
@@ -90,12 +145,30 @@ RUN printf '%s\n' \
 '        fastcgi_pass 127.0.0.1:9000;' \
 '        fastcgi_index index.php;' \
 '        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;' \
+'        fastcgi_connect_timeout 120s;' \
+'        fastcgi_send_timeout 120s;' \
+'        fastcgi_read_timeout 120s;' \
 '        include fastcgi_params;' \
 '    }' \
 '}' \
 > /etc/nginx/conf.d/default.conf
 
+# =========================
+# Render Port
+# =========================
 ENV PORT=10000
+
 EXPOSE 10000
 
-CMD ["sh", "-c", "export PORT=\"${PORT:-10000}\"; php-fpm -D; nginx -g 'daemon off;'"]
+# =========================
+# Start Laravel + Nginx
+# =========================
+CMD ["sh", "-c", "\
+export PORT=\"${PORT:-10000}\"; \
+sed -i \"s/0.0.0.0:10000/0.0.0.0:${PORT}/\" /etc/nginx/conf.d/default.conf; \
+php artisan config:clear; \
+php artisan cache:clear || true; \
+php artisan migrate --force; \
+php-fpm -D; \
+nginx -g 'daemon off;' \
+"]
