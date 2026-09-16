@@ -11,7 +11,7 @@
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
     @yield('role-css')
     @stack('styles')
     @stack('head-scripts')
@@ -173,14 +173,14 @@
                 studentEvents: ['ApplicationSubmitted','ApplicationStatusChanged','ExamAssigned','ExamCompleted','ExamScoreReleased'],
             };
         </script>
-        <script src="{{ asset('js/deoris-echo.js') }}?v={{ filemtime(public_path('js/deoris-echo.js')) }}" defer></script>
-        <script src="{{ asset('js/deoris-realtime.js') }}?v={{ filemtime(public_path('js/deoris-realtime.js')) }}" defer></script>
+        <script src="{{ secure_asset('js/deoris-echo.js') }}?v={{ filemtime(public_path('js/deoris-echo.js')) }}" defer></script>
+        <script src="{{ secure_asset('js/deoris-realtime.js') }}?v={{ filemtime(public_path('js/deoris-realtime.js')) }}" defer></script>
     @endif
 
     @if($useModuleNotifications)
-        <script src="{{ asset('js/notifications.js') }}?v={{ filemtime(public_path('js/notifications.js')) }}" defer></script>
+        <script src="{{ secure_asset('js/notifications.js') }}?v={{ filemtime(public_path('js/notifications.js')) }}" defer></script>
     @endif
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ secure_asset('js/app.js') }}" defer></script>
     @yield('role-js')
     @stack('scripts')
 </body>
