@@ -3,11 +3,11 @@
 @section('title', 'Admin Dashboard | EntryEase')
 @section('body-class', 'role-admin')
 @section('role-css')
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/admin.css') }}">
 @endsection
 @section('role-js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" defer></script>
-    <script src="{{ asset('js/admin.js') }}" defer></script>
+    <script src="{{ secure_asset('js/admin.js') }}" defer></script>
 @endsection
 @section('sidebar')
     @include('admission.partials.sidebar-admin')

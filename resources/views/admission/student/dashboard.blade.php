@@ -3,11 +3,11 @@
 @section('title', 'Student Dashboard | EntryEase')
 @section('body-class', 'role-student')
 @section('role-css')
-    <link rel="stylesheet" href="{{ asset('css/student.css') }}?v={{ filemtime(public_path('css/student.css')) }}">
-    <link rel="stylesheet" href="{{ asset('css/exam.css') }}?v={{ filemtime(public_path('css/exam.css')) }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/student.css') }}?v={{ filemtime(public_path('css/student.css')) }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/exam.css') }}?v={{ filemtime(public_path('css/exam.css')) }}">
 @endsection
 @section('role-js')
-    <script src="{{ asset('js/student.js') }}" defer></script>
+    <script src="{{ secure_asset('js/student.js') }}" defer></script>
 @endsection
 
 @section('content')

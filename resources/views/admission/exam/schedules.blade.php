@@ -4,10 +4,10 @@
 @php $isAdmin = session('sso_role') === 'admin'; @endphp
 @section('body-class', $isAdmin ? 'role-admin' : 'role-registrar')
 @section('role-css')
-    @if($isAdmin)<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    @else<link rel="stylesheet" href="{{ asset('css/registrar.css') }}">@endif
-    <link rel="stylesheet" href="{{ asset('css/exam.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/exam-schedules.css') }}">
+    @if($isAdmin)<link rel="stylesheet" href="{{ secure_asset('css/admin.css') }}">
+    @else<link rel="stylesheet" href="{{ secure_asset('css/registrar.css') }}">@endif
+    <link rel="stylesheet" href="{{ secure_asset('css/exam.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/exam-schedules.css') }}">
 @endsection
 @section('sidebar')
     @if($isAdmin)@include('admission.partials.sidebar-admin')

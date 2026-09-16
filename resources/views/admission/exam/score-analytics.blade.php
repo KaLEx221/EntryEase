@@ -5,16 +5,16 @@
 @section('body-class', $isAdmin ? 'role-admin' : 'role-registrar')
 @section('role-css')
     @if($isAdmin)
-        <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+        <link rel="stylesheet" href="{{ secure_asset('css/admin.css') }}">
     @else
-        <link rel="stylesheet" href="{{ asset('css/registrar.css') }}">
+        <link rel="stylesheet" href="{{ secure_asset('css/registrar.css') }}">
     @endif
-    <link rel="stylesheet" href="{{ asset('css/exam.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/exam-schedules.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/exam.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/exam-schedules.css') }}">
 @endsection
 @section('role-js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" defer></script>
-    <script src="{{ asset('js/exam.js') }}" defer></script>
+    <script src="{{ secure_asset('js/exam.js') }}" defer></script>
 @endsection
 @section('sidebar')
     @if($isAdmin)

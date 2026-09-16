@@ -16,6 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Render (and similar TLS terminators) forward X-Forwarded-Proto. Without
+        // this, Laravel sees the origin request as http and asset()/url()/route()
+        // emit http:// URLs, which DEORIS CSP frame-src rejects.
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'entryease.role' => \App\Http\Middleware\EnsureEntryEaseRole::class,
             'portal.search'  => \App\Http\Middleware\AuthenticatePortalSearchToken::class,

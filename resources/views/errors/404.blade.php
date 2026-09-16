@@ -3,7 +3,7 @@
 @section('title', 'Page Not Found | EntryEase')
 @section('body-class', 'no-sidebar')
 @section('role-css')
-    <link rel="stylesheet" href="{{ asset('css/error.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/error.css') }}">
 @endsection
 
 @section('content')

@@ -3,8 +3,8 @@
 @section('title', 'Student Documents | EntryEase')
 @section('body-class', 'role-registrar')
 @section('role-css')
-    <link rel="stylesheet" href="{{ asset('css/registrar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/registrar-documents.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/registrar.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/registrar-documents.css') }}">
 @endsection
 @section('sidebar')
     @include('admission.partials.sidebar-registrar')

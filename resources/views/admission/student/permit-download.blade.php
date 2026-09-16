@@ -417,6 +417,6 @@
         </footer>
     </div>
 </div>
-<script src="{{ asset('js/app.js') }}?v={{ @filemtime(public_path('js/app.js')) }}"></script>
+<script src="{{ secure_asset('js/app.js') }}?v={{ @filemtime(public_path('js/app.js')) }}"></script>
 </body>
 </html>

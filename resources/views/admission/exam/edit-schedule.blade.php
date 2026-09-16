@@ -3,9 +3,9 @@
 @section('title', 'Edit Schedule | EntryEase')
 @section('body-class', 'role-registrar')
 @section('role-css')
-    <link rel="stylesheet" href="{{ asset('css/registrar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/exam.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/exam-schedules.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/registrar.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/exam.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/exam-schedules.css') }}">
 @endsection
 @section('sidebar')
     @include('admission.partials.sidebar-registrar')

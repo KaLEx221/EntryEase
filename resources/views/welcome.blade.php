@@ -3,7 +3,7 @@
 @section('title', config('app.name'))
 @section('body-class', 'no-sidebar')
 @section('role-css')
-    <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/landing.css') }}">
 @endsection
 
 @section('content')

@@ -3,8 +3,8 @@
 @section('title', 'Exam Schedule | EntryEase')
 @section('body-class', 'role-student')
 @section('role-css')
-    <link rel="stylesheet" href="{{ asset('css/student.css') }}?v={{ filemtime(public_path('css/student.css')) }}">
-    <link rel="stylesheet" href="{{ asset('css/exam.css') }}?v={{ filemtime(public_path('css/exam.css')) }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/student.css') }}?v={{ filemtime(public_path('css/student.css')) }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/exam.css') }}?v={{ filemtime(public_path('css/exam.css')) }}">
 @endsection
 
 @section('content')

@@ -3,11 +3,11 @@
 @section('title', 'Admin Applications | EntryEase')
 @section('body-class', 'role-admin')
 @section('role-css')
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/exam.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/exam.css') }}">
 @endsection
 @section('role-js')
-    <script src="{{ asset('js/admin.js') }}" defer></script>
+    <script src="{{ secure_asset('js/admin.js') }}" defer></script>
 @endsection
 @section('sidebar')
     @include('admission.partials.sidebar-admin')
