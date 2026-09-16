@@ -114,9 +114,10 @@ RUN composer dump-autoload --optimize
 # Laravel Permissions
 # =========================
 RUN mkdir -p /var/www/html/storage/logs \
+    && touch /var/www/html/storage/logs/laravel.log \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod 664 /var/www/html/storage/logs/laravel.log
 # =========================
 # Nginx Configuration
 # =========================
