@@ -61,8 +61,8 @@ return new class extends Migration
             }
         });
 
-        // MySQL/MariaDB-only features
-        if ($driver !== 'sqlite') {
+        // MySQL/MariaDB-only features: PostgreSQL/Supabase skip these because they are not supported
+        if (in_array($driver, ['mysql', 'mariadb'], true)) {
             $this->createViews();
             $this->createStoredProcedures();
             $this->createTriggers();
@@ -73,7 +73,7 @@ return new class extends Migration
     {
         $driver = DB::getDriverName();
 
-        if ($driver !== 'sqlite') {
+        if (in_array($driver, ['mysql', 'mariadb'], true)) {
             $this->dropTriggers();
             $this->dropStoredProcedures();
             $this->dropViews();
