@@ -166,9 +166,9 @@ EXPOSE 10000
 CMD ["sh", "-c", "\
 export PORT=\"${PORT:-10000}\"; \
 sed -i \"s/0.0.0.0:10000/0.0.0.0:${PORT}/\" /etc/nginx/conf.d/default.conf; \
+php-fpm -D; \
 php artisan config:clear; \
 php artisan cache:clear || true; \
-php artisan migrate --force; \
-php-fpm -D; \
+php artisan migrate --force & \
 nginx -g 'daemon off;' \
 "]
