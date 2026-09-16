@@ -106,7 +106,7 @@ COPY . .
 RUN npm run build
 
 # =========================
-# Laravel Autoload / Package Discovery
+# Laravel Autoload
 # =========================
 RUN composer dump-autoload --optimize
 
@@ -166,9 +166,13 @@ EXPOSE 10000
 CMD ["sh", "-c", "\
 export PORT=\"${PORT:-10000}\"; \
 sed -i \"s/0.0.0.0:10000/0.0.0.0:${PORT}/\" /etc/nginx/conf.d/default.conf; \
+echo '===== NGINX CONFIG ====='; \
+cat /etc/nginx/conf.d/default.conf; \
+echo '===== NGINX TEST ====='; \
+nginx -t; \
+echo '===== START PHP-FPM ====='; \
 php-fpm -D; \
-php artisan config:clear; \
-php artisan cache:clear || true; \
-php artisan migrate --force & \
+sleep 2; \
+echo '===== START NGINX ====='; \
 nginx -g 'daemon off;' \
 "]
